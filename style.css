@@ -69,9 +69,10 @@ h1 {
 /* --- Game Area --- */
 .main-game-area {
     display: flex;
+    flex-direction: column;
     gap: 30px;
     width: 100%;
-    justify-content: center;
+    align-items: center;
 }
 
 #board {
@@ -135,7 +136,7 @@ h1 {
     background: #444;
     padding: 15px;
     border-radius: 8px;
-    width: 150px;
+    width: 400px;
     text-align: center;
 }
 
