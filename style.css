@@ -1,167 +1,39 @@
-:root {
-    --light-square: #f0d9b5;
-    --dark-square: #b58863;
-    --correct-square: #5cb85c; /* Green */
-    --incorrect-square: #d9534f; /* Red */
-    --active-square: #ffea00; /* Yellow */
-}
-
-body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #333;
-    color: #fff;
-    margin: 0;
-    padding: 20px;
-}
-
-h1 {
-    color: #ffd700;
-}
-
-#game-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    max-width: 900px;
-}
-
-/* --- Controls --- */
-#controls {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    padding: 15px;
-    background: #444;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    width: 100%;
-    justify-content: center;
-}
-
-.input-group label, #timer-display {
-    font-weight: bold;
-    margin-right: 5px;
-}
-
-#apply-btn, #check-btn {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    border: none;
-    border-radius: 4px;
-    background-color: #5cb85c;
-    color: white;
-}
-
-#check-btn {
-    background-color: #007bff;
-}
-
-#check-btn:disabled {
-    background-color: #6c757d;
-    cursor: not-allowed;
-}
-
 /* --- Game Area --- */
 .main-game-area {
     display: flex;
+    /* New: Stack elements vertically */
+    flex-direction: column;
     gap: 30px;
     width: 100%;
-    justify-content: center;
+    /* New: Center items horizontally */
+    align-items: center; 
 }
 
 #board {
     display: grid;
     grid-template-columns: repeat(8, 1fr);
     grid-template-rows: repeat(8, 1fr);
-    width: 400px;
-    height: 400px;
+    /* Increased size for better view */
+    width: 500px;
+    height: 500px;
     border: 3px solid #000;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     background-color: #fff;
-}
-
-.square {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 32px; /* For the piece symbol */
-    cursor: pointer;
-    user-select: none;
-    position: relative;
-}
-
-.square.light {
-    background-color: var(--light-square);
-}
-
-.square.dark {
-    background-color: var(--dark-square);
+    margin: 10px 0; /* Add margin for spacing */
 }
 
 /* --- Piece Display and Selection --- */
-.piece {
-    z-index: 10;
-    cursor: grab;
-    transition: transform 0.1s;
-}
-
-/* Visual states for the user phase */
-.square.user-placed {
-    /* Style for squares the user has interacted with */
-}
-
-.square.correct {
-    background-color: var(--correct-square);
-}
-
-.square.incorrect {
-    background-color: var(--incorrect-square);
-}
-
-.piece.active {
-    outline: 3px solid var(--active-square);
-    border-radius: 5px;
-    transform: scale(1.1);
-}
 
 #selection-area {
     background: #444;
     padding: 15px;
     border-radius: 8px;
-    width: 150px;
-    text-align: center;
+    /* New: Match board width */
+    width: 500px; 
+    /* New: Use flex for centering/wrapping pieces */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
-.selectable-piece {
-    font-size: 40px;
-    margin: 5px;
-    padding: 5px;
-    display: inline-block;
-    cursor: pointer;
-    border: 2px solid transparent;
-}
-
-.selectable-piece.selected {
-    border-color: var(--active-square);
-    background-color: #555;
-    border-radius: 5px;
-}
-
-/* --- Utility Classes --- */
-.hidden {
-    display: none !important;
-}
-
-#message-area {
-    margin-top: 20px;
-    font-size: 1.2em;
-    font-weight: bold;
-    color: #fff;
-}
+/* Retain piece and selectable-piece styles as they are fine */
