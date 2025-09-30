@@ -296,5 +296,5 @@ checkBtn.addEventListener('click', checkAnswer);
 document.addEventListener('DOMContentLoaded', () => {
     createBoard();
     createSelectionArea();
-    //boardEl.classList.add('hidden'); // Hide board until start
+    // Board is now visible from the start - removed the hidden class
 });
