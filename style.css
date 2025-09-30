@@ -75,7 +75,36 @@ h1 {
     align-items: center;
 }
 
+/* --- Board Wrapper with Coordinates --- */
+#board-wrapper {
+    display: grid;
+    grid-template-columns: 30px 400px;
+    grid-template-rows: 400px 30px;
+    gap: 0;
+}
+
+#rank-labels {
+    grid-column: 1;
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding-right: 5px;
+}
+
+.rank-label {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffd700;
+    height: 50px;
+    display: flex;
+    align-items: center;
+}
+
 #board {
+    grid-column: 2;
+    grid-row: 1;
     display: grid;
     grid-template-columns: repeat(8, 1fr);
     grid-template-rows: repeat(8, 1fr);
@@ -84,6 +113,23 @@ h1 {
     border: 3px solid #000;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     background-color: #fff;
+}
+
+#file-labels {
+    grid-column: 2;
+    grid-row: 2;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-top: 5px;
+}
+
+.file-label {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffd700;
+    width: 50px;
+    text-align: center;
 }
 
 .square {
@@ -111,6 +157,25 @@ h1 {
     z-index: 10;
     cursor: grab;
     transition: transform 0.1s;
+}
+
+/* Make white pieces actually white with black outline */
+.piece.white {
+    color: white;
+    text-shadow: 
+        -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000,
+        -2px 0 0 #000,
+        2px 0 0 #000,
+        0 -2px 0 #000,
+        0 2px 0 #000;
+}
+
+/* Make black pieces actually black */
+.piece.black {
+    color: #000;
 }
 
 /* Visual states for the user phase */
@@ -153,6 +218,24 @@ h1 {
     border-color: var(--active-square);
     background-color: #555;
     border-radius: 5px;
+}
+
+/* Apply white/black styling to selectable pieces too */
+.selectable-piece.white {
+    color: white;
+    text-shadow: 
+        -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000,
+        -2px 0 0 #000,
+        2px 0 0 #000,
+        0 -2px 0 #000,
+        0 2px 0 #000;
+}
+
+.selectable-piece.black {
+    color: #000;
 }
 
 /* --- Utility Classes --- */

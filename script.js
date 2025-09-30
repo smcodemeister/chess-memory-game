@@ -61,6 +61,11 @@ function createSelectionArea() {
         const pieceEl = document.createElement('span');
         pieceEl.className = 'selectable-piece';
         pieceEl.dataset.pieceType = type;
+        
+        // Add color class for styling
+        const color = type.startsWith('w') ? 'white' : 'black';
+        pieceEl.classList.add(color);
+        
         pieceEl.innerHTML = PIECES[type];
         pieceEl.addEventListener('click', handleSelectPiece);
         selectionAreaEl.appendChild(pieceEl);
@@ -117,9 +122,9 @@ function initializeGame() {
         const pieceType = getRandomPieceType('w');
         correctPlacement.push({ piece: pieceType, squareId: squareId });
         
-        // Show piece immediately
+        // Show piece immediately with color class
         const squareEl = document.getElementById(squareId);
-        squareEl.innerHTML = `<span class="piece">${PIECES[pieceType]}</span>`;
+        squareEl.innerHTML = `<span class="piece white">${PIECES[pieceType]}</span>`;
     }
 
     // 2. Place Black Pieces
@@ -128,9 +133,9 @@ function initializeGame() {
         const pieceType = getRandomPieceType('b');
         correctPlacement.push({ piece: pieceType, squareId: squareId });
 
-        // Show piece immediately
+        // Show piece immediately with color class
         const squareEl = document.getElementById(squareId);
-        squareEl.innerHTML = `<span class="piece">${PIECES[pieceType]}</span>`;
+        squareEl.innerHTML = `<span class="piece black">${PIECES[pieceType]}</span>`;
     }
 
     // Start the timer and hide pieces after timeout
@@ -220,9 +225,10 @@ function handleSquareClick(e) {
     const squareEl = e.currentTarget;
     const squareId = squareEl.id;
 
-    // Place the piece
+    // Place the piece with color class
+    const color = activePieceType.startsWith('w') ? 'white' : 'black';
     userPlacement[squareId] = activePieceType;
-    squareEl.innerHTML = `<span class="piece">${PIECES[activePieceType]}</span>`;
+    squareEl.innerHTML = `<span class="piece ${color}">${PIECES[activePieceType]}</span>`;
     messageArea.textContent = `Placed ${activePieceType} on ${squareId}.`;
 }
 
@@ -244,11 +250,12 @@ function checkAnswer() {
         const { piece, squareId } = correctItem;
         const userPiece = userPlacement[squareId];
         const squareEl = document.getElementById(squareId);
+        const color = piece.startsWith('w') ? 'white' : 'black';
 
         // a. Square has a piece and it's the correct piece
         if (userPiece === piece) {
             squareEl.classList.add('correct');
-            squareEl.innerHTML = `<span class="piece">${PIECES[piece]}</span>`;
+            squareEl.innerHTML = `<span class="piece ${color}">${PIECES[piece]}</span>`;
             correctCount++;
         } 
         // b. Square has a piece, but it's the wrong piece
@@ -260,7 +267,7 @@ function checkAnswer() {
         else {
             squareEl.classList.add('incorrect');
             // Reveal the MISSING correct piece
-            squareEl.innerHTML = `<span class="piece">${PIECES[piece]}</span>`;
+            squareEl.innerHTML = `<span class="piece ${color}">${PIECES[piece]}</span>`;
         }
         delete userPlacement[squareId]; // Mark as checked
     });
@@ -269,10 +276,11 @@ function checkAnswer() {
     for (const squareId in userPlacement) {
         const pieceType = userPlacement[squareId];
         const squareEl = document.getElementById(squareId);
+        const color = pieceType.startsWith('w') ? 'white' : 'black';
         
         // This means the user placed a piece here, but nothing should have been here
         squareEl.classList.add('incorrect');
-        squareEl.innerHTML = `<span class="piece">${PIECES[pieceType]}</span>`;
+        squareEl.innerHTML = `<span class="piece ${color}">${PIECES[pieceType]}</span>`;
     }
 
     const total = correctPlacement.length;
@@ -288,5 +296,5 @@ checkBtn.addEventListener('click', checkAnswer);
 document.addEventListener('DOMContentLoaded', () => {
     createBoard();
     createSelectionArea();
-    boardEl.classList.add('hidden'); // Hide board until start
+    //boardEl.classList.add('hidden'); // Hide board until start
 });
